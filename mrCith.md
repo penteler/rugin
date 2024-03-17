@@ -14,7 +14,7 @@ fn main() {
     println!("{}", args);
 }
 ```
-fix this by making these changes `?#` (pretty print) might also work:
+fix this by making these changes using `:?` to extend the formatter or `?#` (pretty print) might also work:
 ```changes
 use std::env::{args, Args};
 fn main() {
@@ -46,7 +46,7 @@ this can be fixed as such we don't have to strictly import `args` (or perhaps th
 ```fix
 use std::env::{args, Args};
 fn main() {
-	let args: Args =  args();
-	println!("{:?}");
+  let args: Args = args();
+    println!("{:?}", args);
 }
 ```
