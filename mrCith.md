@@ -1,4 +1,4 @@
-a function is delared using the `fn` keyword with the handle main `main()` this a call to the printline macro `println!()` the exclaim denotes the macro here and is apararently also called the "bang/bane symbol"
+a function is delared using the `fn` keyword with the handle main `main()` this is a call to the printline macro `println!()` the exclaim denotes the macro here and is apararently also called the "bang/bane symbol"
 ```by default
 fn main() {
     println!("Hello, world!");
@@ -26,4 +26,18 @@ This is how the Args struct is printed:
 ```output
 Args { inner: ["/home/runner/mruining/target/debug/calculator"] }
 ```
-it contains an inner field and the path to the binary
+it contains an inner field(or inner array) and the path to the compiled binary. This can be confirmed by ruinning the application and passing in the argument `cargo run -- blahBlah`
+```output
+Args { inner: ["/home/runner/mruining/target/debug/calculator", "blahBlah"] }
+```
+there is a warning about an unused import and a second warning about the warning with a suggestion
+
+
+
+```warning
+use std::env::{args, Args};
+fn main() {
+	let args =  args();
+	println!("{:?}");
+}
+```
