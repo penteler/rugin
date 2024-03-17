@@ -1,4 +1,4 @@
-a function is delared using the `fn` keyword with the handle main `main()` this is a call to the printline macro `println!()` the exclaim denotes the macro here and is apararently also called the "bang/bane symbol"
+a function is delared using the `fn` keyword with the handle/name main `main()` this is a call to the printline macro `println!()` the exclaim denotes the macro here and is apararently also called the "bang symbol"
 ```by default
 fn main() {
     println!("Hello, world!");
