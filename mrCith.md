@@ -42,10 +42,7 @@ warning: unused import: `Args`
 
 warning: `calculator` (bin "calculator") generated 1 warning (run `cargo fix --bin "calculator"` to apply 1 suggestion)
 ```
-this can be fixed as such we don't have to strictly import `args` (or perhaps the `Args` struct) but if we want to explicity type the `let args:` variable we can do that as such using the `Args` struct that had been import. This probably a way of finding a use for this unsused import
-
-
-
+this can be fixed as such we don't have to strictly import `args` (or perhaps the `Args` struct) but if we want to explicity type the `let args:` variable we can do that as such using the `Args` struct that had been import. This is probably a way of finding a use for this unsused import. Either way now you won't see any warnings or suggestions in the output. Apparently typing in a colon and then `Args` is how we end up using it `let args: Args`
 ```fix
 use std::env::{args, Args};
 fn main() {
