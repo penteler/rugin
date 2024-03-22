@@ -75,3 +75,75 @@ fn main() {
     println!("{:?}", first);
 }
 ```
+cargo run
+```output
+cargo run
+    Finished dev [unoptimized + debuginfo] target(s) in 0.08s
+     Running `target\debug\calculator.exe`
+Some("target\\debug\\calculator.exe")
+```
+this is the value of the first variable `Some("target\\debug\\calculator.exe")` it is `some` wrapping value we're apparently interested in. Some is a variant on the option enum he says he will make it more clear after defining enums. For now we can unwrap options and any of their variants to get this value inside like so:
+```unwrap
+use std::env::{args, Args};
+fn main() {
+  let mut args: Args = args();
+
+  let first = args.nth(0).unwrap();
+    println!("{:?}", first);
+}
+```
+rerun
+```output
+    Finished dev [unoptimized + debuginfo] target(s) in 3.09s
+     Running `target\debug\calculator.exe`
+"target\\debug\\calculator.exe"
+```
+Here we're gonna try to pass in an index where there is no argument `nth(2)`:
+```without
+use std::env::{args, Args};
+fn main() {
+  let mut args: Args = args();
+
+  let first = args.nth(2).unwrap();
+    println!("{:?}", first);
+}
+```
+Panicking is rust's way of erroring during the runtime. You can see `thread 'main' panicked at src\main.rs:5:29:` called `Option::unwrap()` on a `None` value. This is because there is no value to access the `nth(2)` method so `None` is returned as opposed to some with a value.
+```panicking
+Finished dev [unoptimized + debuginfo] target(s) in 0.61s
+     Running `target\debug\calculator.exe`
+thread 'main' panicked at src\main.rs:5:29:
+called `Option::unwrap()` on a `None` value
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+error: process didn't exit successfully: `target\debug\calculator.exe` (exit code: 101)
+```
+so instead of unwrapping we're just gonna print the value like we did before unwraping.
+Here we're gonna try to run this without any arguments `nth()`:
+```without
+use std::env::{args, Args};
+fn main() {
+  let mut args: Args = args();
+
+  let first = args.nth().unwrap();
+    println!("{:?}", first);
+}
+```
+rerun
+```output
+
+error[E0061]: this method takes 1 argument but 0 arguments were supplied
+ --> src\main.rs:5:19
+  |
+5 |     let first = args.nth().unwrap();
+  |                      ^^^-- an argument of type `usize` is missing
+  |
+note: method defined here
+ --> /rustc/07dca489ac2d933c78d3c5158e3f43beefeb02ce\library\core\src\iter\traits\iterator.rs:396:8
+help: provide the argument
+  |
+5 |     let first = args.nth(/* usize */).unwrap();
+  |                         ~~~~~~~~~~~~~
+
+For more information about this error, try `rustc --explain E0061`.
+error: could not compile `calculator` (bin "calculator") due to 1 previous error
+```
